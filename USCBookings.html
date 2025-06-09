@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untouchable Sound Crew</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .dropdown {
+      position: fixed;
+      top: -60px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      transition: top 0.3s;
+      z-index: 1000;
+      pointer-events: auto;
+    }
+
+    .dropdown a {
+  display: inline-block;
+  padding: 10px 15px;
+  line-height: 1.5;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 2px 2px 6px rgba(214, 40, 40, 0.9);
+  cursor: pointer;
+}
+
+    .header-hover {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 30px;
+      z-index: 1001;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+      scroll-margin-top: 80px;
+    }
+
+    #home {
+      background: #000;
+    }
+
+    .home-top {
+      width: 100%;
+      height: 60vh;
+      overflow: hidden;
+    }
+
+    .home-top img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .home-bottom {
+      height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      text-align: center;
+      padding: 0 20px;
+      line-height: 1.5;
+    }
+
+    .home-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .home-buttons a {
+      text-decoration: none;
+      color: white;
+      background-color: #d62828;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .home-buttons a:hover {
+      background-color: #a71c1c;
+    }
+
+    #team-intro {
+      background: url('images/meettheteam.png') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #team-intro h2 {
+      font-size: 64px;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(214, 40, 40, 0.9);
+      font-weight: 700;
+    }
+
+    #team {
+  background: url('images/canadabg.png') center/cover no-repeat;
+  padding: 60px 20px;
+}
+
+    #team::before {
+      content: "Canada 🇨🇦";
+      display: block;
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(214, 40, 40, 0.9);
+    }
+
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px 0;
+    }
+
+    a.team-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .team-card {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      width: 280px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: transform 1.5s ease, box-shadow 0.3s ease;
+    }
+
+    .team-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .team-link:hover .team-card {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+      cursor: pointer;
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .team-card .team-bio {
+      font-size: 16px;
+    }
+
+    .team-grid .team-link:nth-child(2n) .team-card {
+      margin-top: 40px;
+    }
+
+    .team-grid .team-link:nth-child(3n) .team-card {
+      margin-top: 80px;
+    }
+
+    .team-grid .team-link:nth-child(6) .team-card {
+      margin-top: 0px;
+    }
+    #booking {
+  background: none !important;
+}
+
+#booking h2 {
+  font-size: 64px;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(214, 40, 40, 0.9);
+  font-weight: 700;
+}
+
+    .booking-form {
+      background-color: #111;
+      padding: 40px;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .booking-form label,
+    .booking-form input,
+    .booking-form textarea {
+      color: white;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .booking-form input,
+    .booking-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #333;
+    }
+
+    .booking-form button {
+      background-color: #d62828;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .booking-form button:hover {
+      background-color: #a71c1c;
+    }
+    select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  appearance: none;
+}
+
+select:required:invalid {
+  color: #aaa;
+}
+
+select[multiple] {
+  height: auto;
+  min-height: 100px;
+}
+/* Custom Multiselect Styles */
+.custom-multiselect {
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.custom-multiselect .selected-options {
+  pointer-events: none;
+  color: #aaa;
+}
+
+.custom-multiselect .options-list {
+  display: none;
+  position: absolute;
+  background-color: #222;
+  color: white;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 999;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.custom-multiselect.open .options-list {
+  display: block;
+}
+
+.custom-multiselect .options-list label {
+  display: block;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.custom-multiselect input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Styling dropdowns to match */
+select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  appearance: none;
+}
+
+select:required:invalid {
+  color: #aaa;
+}
+.booking-form label {
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 600;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea,
+.booking-form .custom-multiselect {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Checkbox & radio alignment */
+.booking-form input[type="checkbox"],
+.booking-form input[type="radio"] {
+  transform: translateY(2px);
+  margin-right: 8px;
+}
+
+.booking-form label input[type="checkbox"],
+.booking-form label input[type="radio"] {
+  margin-right: 6px;
+}
+
+/* Custom multiselect styles */
+.custom-multiselect {
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.custom-multiselect .selected-options {
+  pointer-events: none;
+  color: #aaa;
+}
+
+.custom-multiselect .options-list {
+  display: none;
+  position: absolute;
+  background-color: #222;
+  color: white;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 999;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.custom-multiselect.open .options-list {
+  display: block;
+}
+
+.custom-multiselect .options-list label {
+  display: block;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+/* Align checkboxes and radio buttons with label text */
+.booking-form input[type="checkbox"],
+.booking-form input[type="radio"] {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.booking-form .options-list label,
+.booking-form div > label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+/* Properly align checkboxes and radio buttons with labels */
+.options-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.options-list input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Keep input aligned with text */
+.options-list input[type="checkbox"],
+.radio-group input[type="radio"] {
+  transform: none;
+  margin: 0;
+}
+
+/* Optional: Make radios inline instead of stacked */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.booking-form .invalid {
+  border: 1px solid #d62828 !important;
+  animation: shake 0.3s ease-in-out;
+}
+
+.booking-form label.invalid {
+  color: #d62828;
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Shake animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.booking-form .invalid {
+  border: 1px solid #d62828 !important;
+  animation: shake 0.3s ease-in-out;
+}
+
+.booking-form label.invalid {
+  color: #d62828 !important;
+  animation: shake 0.3s ease-in-out;
+}
+
+#servicesDropdown.invalid {
+  border: 1px solid #d62828;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.required-label::after {
+  content: " *";
+  color: #d62828;
+  font-weight: bold;
+}
+
+.booking-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.booking-image {
+  flex: 1 1 200px;
+  max-width: 250px;
+}
+
+.booking-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.booking-form {
+  flex: 2 1 400px;
+  background-color: #111;
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.radio-group label {
+  margin-right: 20px;
+  display: inline-block;
+}
+
+.custom-multiselect {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.custom-multiselect .options-list label {
+  display: block;
+  margin-bottom: 8px;
+}
+.booking-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.booking-image {
+  flex: 0 0 300px;
+  display: flex;
+  align-items: center;
+}
+
+.booking-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Keep the form growing responsively */
+.booking-form {
+  background-color: #111;
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+  flex-grow: 1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+.booking-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 40px;
+  padding: 0;
+  width: 100%;
+}
+
+.booking-image {
+  display: flex;
+}
+
+.booking-image.left {
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.booking-image.right {
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.booking-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 0 0 12px;
+}
+
+.booking-form {
+  background-color: #111;
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.half {
+  height: 100%;
+  width: 100%;
+}
+
+.half img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.center-form {
+  background-color: #111;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booking-form {
+  width: 100%;
+  max-width: 600px;
+  color: white;
+}
+.booking-layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+    height: 100vh;
+    width: 100%;
+  }
+
+  .half img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+  }
+
+  .center-form {
+    background-color: #111;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .booking-form {
+    width: 100%;
+    max-width: 600px;
+    color: white;
+  }
+
+  .booking-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+  height: 100vh; /* Full viewport height */
+}
+
+.half {
+  height: 100vh; /* Make each half fill the screen */
+  width: 100%;
+}
+
+.half img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.center-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #111;
+}
+html, body {
+    height: 100%;
+  }
+
+  #booking {
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+
+  .booking-layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+    height: 100vh;
+  }
+
+  .half {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .half img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .center-form {
+    background-color: #111;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .booking-form {
+    width: 100%;
+    max-width: 600px;
+    color: white;
+  }
+  #booking {
+  scroll-margin-top: 0px; /* Scrolls 100px lower than normal */
+}
+  
+  </style>
+</head>
+<body>
+  <div class="header-hover"></div>
+  <div class="dropdown" id="navbar">
+    <a href="#home">Home</a>
+    <a href="#team-intro">Meet Our Team</a>
+    <a href="#booking">Make a Booking</a>
+  </div>
+
+  <section id="home">
+    <div class="home-top">
+      <img src="/Users/hariishravishankar/Downloads/476159339_942942244651821_1014359062131523742_n.jpg" alt="Logo">
+    </div>
+    <div class="home-bottom">
+      <div>Untouchable Sound Crew</div>
+      <div>Premium DJs and AV Services</div>
+      <div class="home-buttons">
+        <a href="#home">Home</a>
+        <a href="#team-intro">Meet Our Team</a>
+        <a href="#booking">Make a Booking</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="team-intro">
+    <h2>Meet Our Team</h2>
+  </section>
+
+  <section id="team">
+    <div class="team-grid">
+      <a href="https://www.instagram.com/djriot__/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/riot.jpg"><div class="team-bio">DJ Riot</div></div>
+      </a>
+      <a href="https://www.instagram.com/djspinzta/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/spinzta.png"><div class="team-bio">DJ Spinzta</div></div>
+      </a>
+      <a href="https://www.instagram.com/djkavss/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/kavs.jpeg"><div class="team-bio">DJ Kavs</div></div>
+      </a>
+      <a href="https://www.instagram.com/dj.spadez/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/spadez.png"><div class="team-bio">DJ Spadez</div></div>
+      </a>
+      <a href="https://www.instagram.com/djsj.usc/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/ar.JPG"><div class="team-bio">DJ AR</div></div>
+      </a>
+      <a href="https://www.instagram.com/_djchristy/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="/Users/hariishravishankar/Documents/Screenshots/new-dj2.jpeg"><div class="team-bio">DJ Christy</div></div>
+      </a>
+      <a href="https://www.instagram.com/_djrev/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/rev.JPG"><div class="team-bio">DJ Rev</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="booking">
+    <h2>Book With Us</h2>
+    <div class="booking-layout">
+      <div class="half">
+        <img src="images/majava.png" alt="Left DJ Setup">
+      </div>
+  
+      <div class="center-form">
+        <form id="bookingForm" class="booking-form" method="POST" action="https://formspree.io/f/myzjeprd">
+
+          <label for="firstName" class="required-label">First Name<span class="star"></span></label>
+          <input type="text" id="firstName" name="firstName" required />
+  
+          <label for="lastName">Last Name (Optional)</label>
+          <input type="text" id="lastName" name="lastName" />
+  
+          <label for="phone" class="required-label">Phone Number<span class="star"></span></label>
+          <input type="tel" id="phone" name="phone" required />
+  
+          <label for="email" class="required-label">Email<span class="star"></span></label>
+          <input type="email" id="email" name="email" required />
+  
+          <label for="eventType" class="required-label">Type of Event<span class="star"></span></label>
+          <select id="eventType" name="eventType" required>
+            <option value="">-- Select Event Type --</option>
+            <option>Club Event</option>
+            <option>Corporate Event</option>
+            <option>Engagement Party</option>
+            <option>Semi Formal</option>
+            <option>Formal</option>
+            <option>Prom</option>
+            <option>Wedding Ceremony</option>
+            <option>Wedding Reception</option>
+            <option>Wedding Afterparty</option>
+          </select>
+  
+          <label for="eventDate" class="required-label">Event Date<span class="star"></span></label>
+          <input type="date" id="eventDate" name="eventDate" required />
+  
+          <label for="startTime" class="required-label">Start Time<span class="star"></span></label>
+          <input type="time" id="startTime" name="startTime" required />
+  
+          <label for="endTime" class="required-label">End Time<span class="star"></span></label>
+          <input type="time" id="endTime" name="endTime" required />
+  
+          <label for="venueName" class="required-label">Venue Name<span class="star"></span></label>
+          <input type="text" id="venueName" name="venueName" required />
+  
+          <label for="venueAddress" class="required-label">Venue Address<span class="star"></span></label>
+          <input type="text" id="venueAddress" name="venueAddress" required />
+  
+          <label for="guestCount" class="required-label">Expected Number of Guests<span class="star"></span></label>
+          <input type="number" id="guestCount" name="guestCount" required min="1" />
+  
+          <label for="services" class="required-label">Types of Service<span class="star"></span></label>
+          <div class="custom-multiselect" id="servicesDropdown">
+            <div class="selected-options">-- Select Services --</div>
+            <div class="options-list">
+              <label><input type="checkbox" value="Deejay" /> Deejay</label>
+              <label><input type="checkbox" value="Emcee" /> Emcee</label>
+              <label><input type="checkbox" value="Sound" /> Sound</label>
+              <label><input type="checkbox" value="Lighting" /> Lighting</label>
+              <label><input type="checkbox" value="Special Effects" /> Special Effects</label>
+              <label><input type="checkbox" value="Microphones" /> Microphones</label>
+              <label><input type="checkbox" value="LED Screens" /> LED Screens</label>
+              <label><input type="checkbox" value="Sparkulars" /> Sparkulars</label>
+              <label><input type="checkbox" value="Dry Ice" /> Dry Ice</label>
+              <label><input type="checkbox" value="Hazer" /> Hazer</label>
+            </div>
+          </div>
+  
+          <label class="required-label">Will there be an Event Planner?<span class="star">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="eventPlanner" value="Yes" required /> Yes</label>
+            <label><input type="radio" name="eventPlanner" value="No" required /> No</label>
+          </div>
+  
+          <label for="djPreference" class="required-label">DJ Preference<span class="star">*</span></label>
+          <select id="djPreference" name="djPreference" required>
+            <option value="">-- Select a DJ --</option>
+            <option>DJ Kavs</option>
+            <option>DJ Riot</option>
+            <option>DJ Spinzta</option>
+            <option>DJ Spadez</option>
+            <option>DJ Christy</option>
+            <option>DJ Rev</option>
+          </select>
+  
+          <button type="submit">Submit Booking</button>
+        </form>
+      </div>
+  
+      <div class="half">
+        <img src="images/hallowhine.png" alt="Right DJ Setup">
+      </div>
+    </div>
+  </section>
+  
+
+  <script>
+
+  const navbar = document.getElementById("navbar");
+
+  function checkNavbarVisibility() {
+    const homeSection = document.getElementById("home");
+    const homeRect = homeSection.getBoundingClientRect();
+
+    // Show navbar only if bottom of home section is above the top of the viewport
+    if (homeRect.bottom <= 0) {
+      navbar.style.top = "0";
+    } else {
+      navbar.style.top = "-60px";
+    }
+  }
+
+  // Initial check in case user reloads mid-scroll
+  window.addEventListener("load", checkNavbarVisibility);
+
+  // Check on scroll
+  window.addEventListener("scroll", checkNavbarVisibility);
+    // Animate team cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("visible", entry.isIntersecting);
+      });
+    }, { threshold: 0.1 });
+  
+    document.querySelectorAll(".team-card").forEach(el => observer.observe(el));
+  
+    // Custom multiselect dropdown
+    const servicesDropdown = document.getElementById("servicesDropdown");
+    if (servicesDropdown) {
+      const selectedDisplay = servicesDropdown.querySelector(".selected-options");
+      const checkboxes = servicesDropdown.querySelectorAll("input[type='checkbox']");
+  
+      servicesDropdown.addEventListener("click", () => {
+        servicesDropdown.classList.toggle("open");
+      });
+  
+      checkboxes.forEach(cb => {
+        cb.addEventListener("change", () => {
+          const selected = Array.from(checkboxes)
+            .filter(c => c.checked)
+            .map(c => c.value);
+          selectedDisplay.textContent = selected.length ? selected.join(", ") : "-- Select Services --";
+        });
+      });
+  
+      document.addEventListener("click", (e) => {
+        if (!servicesDropdown.contains(e.target)) {
+          servicesDropdown.classList.remove("open");
+        }
+      });
+    }
+  
+    // Phone number formatting
+    const phoneInput = document.getElementById("phone");
+    if (phoneInput) {
+      phoneInput.addEventListener("input", function (e) {
+        let input = e.target.value.replace(/\D/g, "").substring(0, 10);
+        const areaCode = input.substring(0, 3);
+        const middle = input.substring(3, 6);
+        const last = input.substring(6, 10);
+  
+        if (input.length > 6) {
+          e.target.value = `(${areaCode}) ${middle}-${last}`;
+        } else if (input.length > 3) {
+          e.target.value = `(${areaCode}) ${middle}`;
+        } else if (input.length > 0) {
+          e.target.value = `(${areaCode}`;
+        }
+      });
+    }
+  
+    // Form validation
+    const bookingForm = document.getElementById("bookingForm");
+    if (bookingForm) {
+      bookingForm.addEventListener("submit", function (e) {
+        let hasInvalid = false;
+        let firstInvalidElement = null;
+  
+        // Clear previous highlights
+        bookingForm.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+  
+        // Native required fields
+        bookingForm.querySelectorAll("[required]").forEach(input => {
+          if (!input.checkValidity()) {
+            hasInvalid = true;
+            input.classList.add("invalid");
+            const label = bookingForm.querySelector(`label[for="${input.id}"]`);
+            if (label) label.classList.add("invalid");
+            if (!firstInvalidElement) firstInvalidElement = input;
+          }
+        });
+  
+        // Custom multiselect
+        const checked = servicesDropdown?.querySelectorAll("input[type='checkbox']:checked") ?? [];
+        if (checked.length === 0) {
+          hasInvalid = true;
+          servicesDropdown?.classList.add("invalid");
+          const label = bookingForm.querySelector(`label[for="services"]`);
+          if (label) label.classList.add("invalid");
+          if (!firstInvalidElement) firstInvalidElement = servicesDropdown;
+        }
+  
+        if (hasInvalid) {
+          e.preventDefault();
+          firstInvalidElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    }
+  
+    // Smooth scrolling with offset
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute("href");
+    const target = document.querySelector(targetId);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+});
+  </script>
+  
+</body>
+</html>
