@@ -1,11 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="//unpkg.com/globe.gl"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Untouchable Sound Crew</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+  .team-grid {
+  position: relative;
+  z-index: 10;
+}
+.team-link {
+  display: block;
+  cursor: pointer !important;
+  z-index: 20;
+  position: relative;
+}
+
+
+    .continent-section {
+  min-height: 100vh; /* ensures it fills the viewport */
+  width: 100%;
+  background-position: center;
+  background-size: cover; /* makes the image cover the entire section */
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers your content vertically */
+  align-items: center;     /* centers horizontally */
+}
+
+    #team, .continent-section {
+  scroll-margin-top: 80px; /* This pushes the scroll target down so the navbar doesn't cover it */
+}
+.globe-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* This moves the label out based on the 'h' value in the data */
+  transform: translateZ(var(--stem-height));
+}
+
+.marker-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: white;
+  background: #d62828;
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+
+/* This line connects the label to the globe surface */
+.marker-stem {
+  width: 1px;
+  height: var(--stem-height);
+  background: linear-gradient(to bottom, #d62828, rgba(255,255,255,0.2));
+}
+
+.marker-dot {
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 5px white;
+}
+    #team-intro {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000; /* Fallback background */
+  z-index: 1;
+}
+
+#globeViz {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Lowest layer */
+}
+
+.team-intro-content {
+  position: relative;
+  z-index: 10; /* Higher than globeViz */
+  text-align: center;
+  pointer-events: none; /* Allows you to click the globe through the empty space */
+  z-index: 2
+}
+
+.team-intro-content h2 {
+  font-size: 64px;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(214, 40, 40, 0.9);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.team-intro-content .home-buttons {
+  pointer-events: auto; /* Makes sure the buttons are still clickable */
+}
+  /* Container for the 3D Globe */
+
+/* The actual floating marker */
+.globe-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.marker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* This moves the label "out" away from the globe surface */
+  transform: translateZ(50px); 
+}
+
+.marker-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: rgba(214, 40, 40, 0.9); /* Your red theme color */
+  padding: 6px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(214, 40, 40, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 8px;
+}
+
+.marker-dot {
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffffff;
+}
+
+/* Hover effect to make it pop even more */
+.globe-marker:hover .marker-label {
+  background: #ffffff;
+  color: #d62828;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.review-card {
+  justify-self: end;
+  width: 350px;
+  height: 450px;
+  background: rgba(17, 17, 17, 0.95);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 25px rgba(214, 40, 40, 0.35);
+  animation: fadeReview 7s infinite;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.review-card img {
+  width: 100%;
+  height: 200px; /* controls image height */
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  border: none;
+}
+
+
+.review-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 20px 0 10px;
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+}
+
+.review-card span {
+  font-size: 13px;
+  color: #aaa;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fade animation */
+@keyframes fadeReview {
+  0% { opacity: 0; transform: translateY(10px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .review-card {
+    justify-self: center;
+    margin-bottom: 30px;
+  }
+}
+
     * {
       margin: 0;
       padding: 0;
@@ -24,14 +240,20 @@
     .dropdown {
       position: fixed;
       top: -60px;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
+      width: 99vw;
+      background-color: rgba(215, 56, 56, 0.95);
       color: white;
       text-align: center;
       padding: 15px 0;
       transition: top 0.3s;
       z-index: 1000;
       pointer-events: auto;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      
     }
 
     .dropdown a {
@@ -70,23 +292,33 @@
       background: #000;
     }
 
-    .home-top {
-  display: flex;
-  justify-content: center; /* horizontally center */
-  align-items: center;     /* vertically center */
+.home-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   height: 70vh;
   width: 100%;
-  overflow: hidden;
+  padding: 0 40px;
 }
 
 .home-top img {
-  height: 100%;  /* adjust based on how large you want it */
-  width: auto;  /* maintain original aspect ratio */
+  height: 60%;
+  max-height: 450px;
+  width: auto;
   object-fit: contain;
+  justify-self: center;
 }
 
+.spotify-embed {
+  width: 350px;
+  height: 450px;
+  border-radius: 12px;
+  justify-self: start;
+}
+
+
     .home-bottom {
-      height: 40vh;
+      height: 20vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -102,6 +334,7 @@
       display: flex;
       justify-content: center;
       gap: 20px;
+      pointer-events: auto
     }
 
     .home-buttons a {
@@ -118,13 +351,7 @@
       background-color: #a71c1c;
     }
 
-    #team-intro {
-      background: url('images/MELBOURNE\ \ IFT\ AUSTRALIA\ TOUR\ 2024.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+
 
     #team-intro h2 {
       font-size: 64px;
@@ -157,9 +384,10 @@
       padding: 40px 0;
     }
 
-    a.team-link {
+        a.team-link {
       text-decoration: none;
       color: inherit;
+      cursor: pointer;
     }
 
     .team-card {
@@ -169,7 +397,8 @@
       width: 280px;
       opacity: 0;
       transform: translateY(80px);
-      transition: transform 1.5s ease, box-shadow 0.3s ease;
+      transition: opacity 1.5s ease, transform 1.5s ease, box-shadow 0.3s ease;
+      pointer-events: auto;
     }
 
     .team-card.visible {
@@ -178,11 +407,13 @@
     }
 
     .team-link:hover .team-card {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
-      cursor: pointer;
+      transform: translateY(0) scale(1.05);
+      box-shadow: 0 8px 20px #ff000066;
     }
-
+    
+    .team-link:active .team-card {
+      transform: translateY(0) scale(1.02);
+    }
     .team-card img {
       width: 100%;
       height: 250px;
@@ -747,7 +978,66 @@ html, body {
   #booking {
   scroll-margin-top: 0px; /* Scrolls 100px lower than normal */
 }
+/* 🌍 Globe Section */
+#globe-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
 
+#globeCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+#globeCanvas:active {
+  cursor: grabbing;
+}
+
+#team {
+  position: relative;
+  z-index: 50;
+}
+
+
+/* Disable globe interaction globally */
+/* Make globe completely non-interactive outside its section */
+#globeViz {
+  pointer-events: none !important;
+  position: absolute;
+}
+
+#globeViz canvas {
+  pointer-events: none !important;
+}
+
+/* Enable globe only in its section */
+#team-intro #globeViz {
+  pointer-events: auto !important;
+  position: absolute;
+}
+
+#team-intro #globeViz canvas {
+  pointer-events: auto !important;
+}
+
+/* Force team cards to be clickable */
+.team-link {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 9999 !important;
+}
+
+.team-card {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
   </style>
 </head>
 <body>
@@ -760,7 +1050,22 @@ html, body {
 
   <section id="home">
     <div class="home-top">
-      <img src="images/usclogo.jpg" alt="Logo">
+
+        <iframe
+    class="spotify-embed"
+    src="https://open.spotify.com/embed/playlist/2ur1KmtCbQTGSu0hZIg6uN"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
+      <img src="images/uscred.png" alt="Logo">
+          <div class="review-card">
+  <img id="reviewImg" src="images/client1.jpg" alt="Client">
+  <p id="reviewText">
+    “Straight from Canada to London — DJ Kavs lit up the night with his signature style. Big vibes, great energy, and just the beginning”
+  </p>
+  <span id="reviewName">— Aces Vibe</span>
+</div>
     </div>
     <div class="home-bottom">
       <div>Untouchable Sound Crew</div>
@@ -769,35 +1074,38 @@ html, body {
     </div>
   </section>
 
-  <section id="team-intro">
+<section id="team-intro">
+  <div id="globeViz" style="width: 100%; height: 80vh;"></div>
+  <div class="team-intro-content">
     <h2>Meet Our Team</h2>
-    <div class="home-buttons" style="margin-bottom:40px">
-      <a href="#team">Canada</a>
-      <a href="#europe">Europe</a>
-  </section>
+    <div class="home-buttons">
+
+    </div>
+  </div>
+</section>
   
   <section id="team">
     <div class="team-grid">
-      <a href="https://www.instagram.com/djriot__/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/riot.jpg"><div class="team-bio">DJ Riot</div></div>
+      <a href="https://www.instagram.com/djkavss/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/kavs.jpeg"><div class="team-bio">DJ Kavs</div></div>
       </a>
       <a href="https://www.instagram.com/djspinzta/?hl=en" class="team-link" target="_blank">
         <div class="team-card"><img src="images/spinzta.png"><div class="team-bio">DJ Spinzta</div></div>
       </a>
-      <a href="https://www.instagram.com/djkavss/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/kavs.jpeg"><div class="team-bio">DJ Kavs</div></div>
+      <a href="https://www.instagram.com/_djrev/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/rev.JPG"><div class="team-bio">DJ Rev</div></div>
+      </a>
+      <a href="https://www.instagram.com/djriot__/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/riot.jpg"><div class="team-bio">DJ Riot</div></div>
+      </a>
+      <a href="https://www.instagram.com/_djchristy/?hl=en" class="team-link" target="_blank">
+        <div class="team-card"><img src="images/christy.png"><div class="team-bio">DJ Christy</div></div>
       </a>
       <a href="https://www.instagram.com/dj.spadez/?hl=en" class="team-link" target="_blank">
         <div class="team-card"><img src="images/spadez.png"><div class="team-bio">DJ Spadez</div></div>
       </a>
-      <a href="https://www.instagram.com/untouchablesoundcrew/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/ar.JPG"><div class="team-bio">DJ AR</div></div>
-      </a>
-      <a href="https://www.instagram.com/_djchristy/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/christy.JPG"><div class="team-bio">DJ Christy</div></div>
-      </a>
       <a href="https://www.instagram.com/_djrev/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/rev.JPG"><div class="team-bio">DJ Rev</div></div>
+        <div class="team-card"><img src="images/rev.JPG"><div class="team-bio">DJ AB</div></div>
       </a>
     </div>
   </section>
@@ -805,83 +1113,64 @@ html, body {
   <section id="europe">  
     <!-- Switzerland -->   
     
-  <div class="continent-section" style="background: url('images/switzerland-bg.png') center/cover no-repeat; padding: 60px 20px; width: 100vw;">
-    <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Europe 🌎</h2>
-    <h3 style="font-size:40px;text-align:center;color:#fff;margin-bottom:40px">Switzerland 🇨🇭</h3>
-      <div class="team-grid">
-        <a href="https://www.instagram.com/deejayneezy_official?utm_medium=copy_link" class="team-link" target="_blank">
-          <div class="team-card"><img src="images/neezy.png" alt="DJ Neezy"><div class="team-bio">Deejay Neezy</div></div>
-        </a>
-        <a href="https://www.instagram.com/djkrish_15?igshid=YmMyMTA2M2Y%3D" class="team-link" target="_blank">
-          <div class="team-card"><img src="images/krish.png" alt="DJ Krish"><div class="team-bio">DJ Krish</div></div>
-        </a>
-        <a href="https://www.instagram.com/dj_jene?igsh=MWtzNmhseXd1cXZmZw%3D%3D" class="team-link" target="_blank">
-          <div class="team-card"><img src="images/jene.png" alt="DJ Jene"><div class="team-bio">DJ Jene</div></div>
-        </a>
-      </div>
-    </div>
+<section id="switzerland" class="continent-section" style="background: url('images/switzerland-bg.png') center/cover no-repeat; padding: 60px 20px;">
+  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Switzerland 🇨🇭</h2>
+  <div class="team-grid">
+    <a href="https://www.instagram.com/deejayneezy_official?utm_medium=copy_link" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/neezy.png" alt="DJ Neezy"><div class="team-bio">Deejay Neezy</div></div>
+    </a>
+    <a href="https://www.instagram.com/djkrish_15?igshid=YmMyMTA2M2Y%3D" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/krish.png" alt="DJ Krish"><div class="team-bio">DJ Krish</div></div>
+    </a>
+    <a href="https://www.instagram.com/dj_jene?igsh=MWtzNmhseXd1cXZmZw%3D%3D" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/jene.png" alt="DJ Jene"><div class="team-bio">DJ Jene</div></div>
+    </a>
+  </div>
+</section>
     
   
  <!-- France -->
- <div class="continent-section" style="background: url('images/france-bg.png') center/cover no-repeat; padding: 60px 0; width: 100vw;">
-  <h3 style="font-size:40px;text-align:center;color:#fff;margin:60px 0 40px">France 🇫🇷</h3>
+<section id="france" class="continent-section" style="background: url('images/france-bg.png') center/cover no-repeat; padding: 60px 20px;">
+  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">France 🇫🇷</h2>
   <div class="team-grid">
     <a href="https://www.instagram.com/dj_jamesofficial?utm_medium=copy_link" class="team-link" target="_blank">
-      <div class="team-card">
-        <img src="images/james.png" alt="DJ James">
-        <div class="team-bio">DJ James</div>
-      </div>
-    </a>
-    <a href="https://www.instagram.com/dj_key_official?utm_medium=copy_link" class="team-link" target="_blank">
-      <div class="team-card">
-        <img src="images/key.png" alt="DJ Key">
-        <div class="team-bio">DJ Key</div>
-      </div>
+      <div class="team-card"><img src="images/james.png" alt="DJ James"><div class="team-bio">DJ James</div></div>
     </a>
   </div>
-</div>
+</section>
   
-<!-- Britain -->
-<div class="continent-section" style="background: url('images/britain-bg.png') center/cover no-repeat; padding: 60px 0; width: 100vw;">
-  <h3 style="font-size:40px;text-align:center;color:#fff;margin:60px 0 40px">Britain 🇬🇧</h3>
+<section id="uk" class="continent-section" style="background: url('images/britain-bg.png') center/cover no-repeat; padding: 60px 20px;">
+  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">United Kingdom 🇬🇧</h2>
   <div class="team-grid">
-    <a href="https://www.instagram.com/dj_roxzstar/" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/roxzstar.png" alt="DJ RoxzStar"><div class="team-bio">DJ RoxzStar</div></div>
-    </a>
     <a href="https://www.instagram.com/ap_pistol?utm_medium=copy_link" class="team-link" target="_blank">
       <div class="team-card"><img src="images/appistol.png" alt="AP Pistol"><div class="team-bio">AP Pistol</div></div>
     </a>
-    <a href="https://www.instagram.com/bigpsounds?igshid=NmZiMzY2Mjc%3D" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/bigpsounds.png" alt="Big P Sounds"><div class="team-bio">Big P Sounds</div></div>
+    <a href="https://www.instagram.com/dj_roxzstar/" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/roxzstar.png" alt="DJ RoxzStar"><div class="team-bio">DJ RoxzStar</div></div>
     </a>
   </div>
-</div>
+</section>
 
 <!-- Germany -->
-<div class="continent-section" style="background: url('images/germany-bg.png') center/cover no-repeat; padding: 60px 0; width: 100vw;">
-  <h3 style="font-size:40px;text-align:center;color:#fff;margin:60px 0 40px">Germany 🇩🇪</h3>
+<section id="germany" class="continent-section" style="background: url('images/germany-bg.png') center/cover no-repeat; padding: 60px 20px;">
+  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Germany 🇩🇪</h2>
   <div class="team-grid">
     <a href="https://www.instagram.com/dj.cj_?utm_medium=copy_link" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/cj.png" alt="DJ CJ"><div class="team-bio">DJ CJ</div></div>
-    </a>
-    <a href="https://www.instagram.com/dj.xplosive?igshid=YmMyMTA2M2Y%3D" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/xplosive.png" alt="DJ Xplosive"><div class="team-bio">DJ Xplosive</div></div>
-    </a>
-    <a href="https://www.instagram.com/lv.musiic?igsh=MW1tZ3lpczZud2plbg%3D%3D" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/lvmusic.png" alt="LV Music"><div class="team-bio">LV Music</div></div>
+      <div class="team-card"><img src="images/aj.jpg" alt="DJ AJ"><div class="team-bio">DJ AJ</div></div>
     </a>
   </div>
-</div>
+</section>
 
 <!-- Norway -->
-<div class="continent-section" style="background: url('images/norway-bg.png') center/cover no-repeat; padding: 60px 0; width: 100vw;">
-  <h3 style="font-size:40px;text-align:center;color:#fff;margin:60px 0 40px">Norway 🇳🇴</h3>
+<section id="norway" class="continent-section" style="background: url('images/norway-bg.png') center/cover no-repeat; padding: 60px 20px;">
+  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Norway 🇳🇴</h2>
   <div class="team-grid">
     <a href="https://www.instagram.com/dj.anu_/" class="team-link" target="_blank">
       <div class="team-card"><img src="images/anu.png" alt="DJ Anu"><div class="team-bio">DJ Anu</div></div>
     </a>
   </div>
-</div>
+</section>
+</section>
 
 
   <section id="booking">
@@ -981,8 +1270,150 @@ html, body {
     </div>
   </section>
   
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
 
   <script>
+
+// Initialize Globe
+const myGlobe = Globe()
+  (document.getElementById('globeViz'))
+  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+  .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+  .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+  .htmlElementsData([
+    { lat: 43.65, lng: -79.38, name: 'CANADA', link: '#team', h: 0.2 },
+    { lat: 43.81, lng: 8.22, name: 'SWITZERLAND', link: '#switzerland', h: 0.1 }, // Highest stem
+    { lat: 47.9, lng: 2.35, name: 'FRANCE', link: '#france', h: 0.8 },      // Middle stem
+    { lat: 51.50, lng: -0.12, name: 'UK', link: '#uk', h: 1.35 },    // Lowest stem
+    { lat: 52.5200, lng: 13.4050, name: 'GERMANY', link: '#germany', h: 1.7},
+    { lat: 59.9139, lng: 10.7522, name: 'NORWAY', link: '#norway', h: 1.9 }
+  ])
+.htmlElement(d => {
+  const el = document.createElement('div');
+  el.style.cursor = "pointer";
+  el.style.pointerEvents = "auto";
+  el.innerHTML = `
+    <div style="
+      background: rgba(0,0,0,0.7);
+      padding: 6px 10px;
+      border-radius: 14px;
+      border: 1px solid #d62828;
+      box-shadow: 0 0 12px rgba(214,40,40,.8);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    ">
+      🇨🇦 ${d.name}
+    </div>
+  `;
+
+  el.addEventListener("click", e => {
+    e.stopPropagation();
+    document.querySelector(d.link).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  return el;
+})
+// 1. Basic Settings
+myGlobe.controls().enableZoom = false; 
+myGlobe.controls().autoRotate = false; // We disable the default full-circle spin
+
+// 2. Pendulum Variables
+let currentLng = -10;   // Starting position (between Canada and Europe)
+let direction = 1;      // 1 for East, -1 for West
+const rotationLimit = 10; // Max degrees it will swing left/right
+const speed = 0.03;      // Lower is smoother
+
+function animatePendulum() {
+  currentLng += speed * direction;
+
+  // If the globe reaches the limit, reverse direction
+  if (currentLng > rotationLimit || currentLng < -rotationLimit - 30) {
+    direction *= -1;
+  }
+
+  // Update the globe view
+  myGlobe.pointOfView({ 
+    lat: 35, 
+    lng: currentLng, 
+    altitude: 1.5
+
+  });
+
+  requestAnimationFrame(animatePendulum);
+}
+
+// 3. Start the custom movement
+animatePendulum();
+// Hide globe when scrolling past team-intro section
+window.addEventListener('scroll', function() {
+  const teamIntro = document.getElementById('team-intro');
+  const globeViz = document.getElementById('globeViz');
+  
+  if (!teamIntro || !globeViz) return;
+  
+  const rect = teamIntro.getBoundingClientRect();
+  
+  // If team-intro is out of view, hide the globe completely
+  if (rect.bottom < 0 || rect.top > window.innerHeight) {
+    globeViz.style.display = 'none';
+    globeViz.style.pointerEvents = 'none';
+  } else {
+    globeViz.style.display = 'block';
+    globeViz.style.pointerEvents = 'auto';
+  }
+});
+    // Rotating Reviews
+const reviews = [
+  {
+    img: "images/client1.jpg",
+    text: "Straight from Canada to London — DJ Kavs lit up the night with his signature style. Big vibes, great energy, and just the beginning",
+    name: "— Aces Vibe"
+  },
+    {
+    img: "images/client3.JPG",
+    text: "Hello Ajanthan! Thank you so much for being our DJ for our special day and our reception! You did such an amazing job and the music was on point! You accommodated to every request that was made. 100% will recommend you to all our friends!",
+    name: "— Harris & Neeruha."
+  },
+  {
+    img: "images/client2.JPEG",
+    text: "DJ Rev did an amazing job. Its not easy keeping a large group engaged for hours but he did just that. We received so many comments praising his song selection/mixes throughout the night",
+    name: "— Sophia"
+  },
+  {
+    img: "images/client4.jpg",
+    text: "DJ Christy was the best choice for our party. All our friends & family were raving about his transitions and song selection.",
+    name: "— Janessa"
+  },
+  {
+    img: "images/client5.jpg",
+    text: "We hired DJ Spadez for our event and didn't look back after that. He perfectly read our dancefloor and made sure the energy was high at all times ",
+    name: "— Ananth"
+  },
+  {
+    img: "images/client6.jpg",
+    text: "From our introduction to the final song, DJ Spinzta was incredible. The transitions and dance floor stayed hype all night, and our guests had an amazing time. Professional, responsive, and truly invested in making our wedding unforgettable.",
+    name: "— Mithusha & Chad"
+  }
+];
+
+let reviewIndex = 0;
+const reviewImg = document.getElementById("reviewImg");
+const reviewText = document.getElementById("reviewText");
+const reviewName = document.getElementById("reviewName");
+
+setInterval(() => {
+  reviewIndex = (reviewIndex + 1) % reviews.length;
+  reviewImg.src = reviews[reviewIndex].img;
+  reviewText.textContent = `“${reviews[reviewIndex].text}”`;
+  reviewName.textContent = reviews[reviewIndex].name;
+}, 7000);
+
 
   const navbar = document.getElementById("navbar");
 
@@ -1004,11 +1435,13 @@ html, body {
   // Check on scroll
   window.addEventListener("scroll", checkNavbarVisibility);
     // Animate team cards on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        entry.target.classList.toggle("visible", entry.isIntersecting);
-      });
-    }, { threshold: 0.1 });
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible"); // Change .toggle to .add
+    }
+  });
+}, { threshold: 0.1 });
   
     document.querySelectorAll(".team-card").forEach(el => observer.observe(el));
   
@@ -1097,17 +1530,163 @@ html, body {
     }
   
     // Smooth scrolling with offset
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const targetId = this.getAttribute("href");
-    const target = document.querySelector(targetId);
+ // ✅ THIS WAS MISSING
+/* 🌍 3D GLOBE SETUP */
+const canvas = document.getElementById("globeCanvas");
 
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+if (canvas) {
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+
+  const camera = new THREE.PerspectiveCamera(
+    45,
+    canvas.clientWidth / canvas.clientHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 3;
+
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  antialias: true,
+  alpha: false // ❗ changed
+});
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.enableDamping = true;
+
+
+  const globe = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 64, 64),
+    new THREE.MeshStandardMaterial({
+        color: 0xd62828,       // USC red
+    emissive: 0x550000,    // glow from within
+    roughness: 0.4,
+    metalness: 0.2
+    })
+  );
+
+  scene.add(globe);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+const light = new THREE.DirectionalLight(0xffffff, 1.2);
+light.position.set(5, 3, 5);
+scene.add(light);
+
+  function latLngToVector3(lat, lng, radius = 1.02) {
+    const phi = (90 - lat) * Math.PI / 180;
+    const theta = (lng + 180) * Math.PI / 180;
+
+    return new THREE.Vector3(
+      -radius * Math.sin(phi) * Math.cos(theta),
+      radius * Math.cos(phi),
+      radius * Math.sin(phi) * Math.sin(theta)
+    );
+  }
+
+  const pinMaterial = new THREE.MeshStandardMaterial({ color: 0xd62828 });
+  const pinGeometry = new THREE.SphereGeometry(0.025, 16, 16);
+
+  const countries = [
+    { id: "team", lat: 56, lng: -106 },        // Canada
+    { id: "europe", lat: 46.8, lng: 8.3 },     // Switzerland
+    { id: "europe", lat: 46.2, lng: 2.2 },     // France
+    { id: "europe", lat: 55.3, lng: -3.4 },    // UK
+    { id: "europe", lat: 51.1, lng: 10.4 },    // Germany
+    { id: "europe", lat: 60.4, lng: 8.5 }      // Norway
+  ];
+
+const pins = [];
+
+countries.forEach(c => {
+  const basePos = latLngToVector3(c.lat, c.lng, 1.01);
+
+  // 🔴 Pin dot (glowing)
+  const dot = new THREE.Mesh(
+    new THREE.SphereGeometry(0.03, 16, 16),
+    new THREE.MeshStandardMaterial({
+      color: 0xd62828,
+      emissive: 0xff0000,
+      emissiveIntensity: 0.6
+    })
+  );
+  dot.position.copy(basePos);
+
+  // 📍 Line coming out of globe
+  const lineGeom = new THREE.BufferGeometry().setFromPoints([
+    basePos,
+    basePos.clone().multiplyScalar(1.12)
+  ]);
+  const line = new THREE.Line(
+    lineGeom,
+    new THREE.LineBasicMaterial({ color: 0xd62828 })
+  );
+
+  // 🏷 HTML label
+  const label = document.createElement("div");
+  label.textContent = c.id === "team" ? "Canada" : "Europe";
+  label.style.color = "white";
+  label.style.fontSize = "12px";
+  label.style.fontWeight = "700";
+  label.style.textShadow = "1px 1px 4px black";
+  label.style.cursor = "pointer";
+
+  label.onclick = () => {
+    document.getElementById(c.id).scrollIntoView({ behavior: "smooth" });
+  };
+
+  myGlobe.htmlElementsData([
+    ...myGlobe.htmlElementsData(),
+    {
+      lat: c.lat,
+      lng: c.lng,
+      element: label
+    }
+  ]);
+
+  dot.userData.target = c.id;
+
+  scene.add(dot);
+  scene.add(line);
+  pins.push(dot);
+});
+
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  window.addEventListener("click", e => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(pins);
+
+    if (hits.length) {
+      document
+        .getElementById(hits[0].object.userData.target)
+        .scrollIntoView({ behavior: "smooth" });
     }
   });
-});
+
+  window.addEventListener("resize", () => {
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
   </script>
   
 </body>
