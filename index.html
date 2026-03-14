@@ -9,6 +9,166 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <style>
+    textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #222;
+  color: white;
+  font-family: inherit;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #d62828;
+}
+
+    #map {
+  width: 100%;
+  height: 250px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+
+    .booking-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.half {
+  width: 100%;
+  height: auto;
+}
+
+.half img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.center-form {
+  background-color: #111;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+    .events-grid .event-box:last-child{
+  grid-column:1 / span 2;
+  justify-self:center;
+  max-width:400px;
+}
+
+    #events{
+  background:#0b0b0b;
+  padding:100px 20px;
+  text-align:center;
+}
+
+.events-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+  max-width:900px;
+  margin:60px auto 0;
+}
+
+.event-box{
+  background:rgba(20,20,20,.95);
+  padding:30px 25px;
+  border-radius:14px;
+  transition:all .35s ease;
+  box-shadow:0 0 10px rgba(0,0,0,.6);
+}
+
+.event-box h3{
+  font-size:22px;
+  margin-bottom:10px;
+  color:#d62828;
+}
+
+.event-box p{
+  font-size:15px;
+  color:#ddd;
+  line-height:1.6;
+}
+
+.event-box:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 30px rgba(214,40,40,.35);
+}
+
+    #about {
+  animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+    #about {
+  background: #0b0b0b;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.about-text {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: #ddd;
+  font-weight: 500;
+}
+#home {
+  position: relative;
+  background: url("images/banner.jpg") center/cover no-repeat;
+}
+
+#home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.85),
+    rgba(0,0,0,.65),
+    rgba(0,0,0,.9)
+  );
+}
+
+.home-top,
+.home-bottom {
+  position: relative;
+  z-index: 2;
+}
+
+  .section-title {
+  font-size: 56px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: white;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(214,40,40,.6);
+}
 
   @media (max-width: 768px) {
   #globeViz {
@@ -571,9 +731,18 @@ select[multiple] {
 }
 
 .custom-multiselect .options-list label {
-  display: block;
-  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.custom-multiselect .options-list label:hover {
+  background: #2a2a2a;
 }
 
 .custom-multiselect input[type="checkbox"] {
@@ -644,31 +813,6 @@ select:required:invalid {
   color: #aaa;
 }
 
-.custom-multiselect .options-list {
-  display: none;
-  position: absolute;
-  background-color: #222;
-  color: white;
-  width: 100%;
-  top: 100%;
-  left: 0;
-  border-radius: 4px;
-  padding: 10px;
-  z-index: 999;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.custom-multiselect.open .options-list {
-  display: block;
-}
-
-.custom-multiselect .options-list label {
-  display: block;
-  margin-bottom: 6px;
-  cursor: pointer;
-}
 /* Align checkboxes and radio buttons with label text */
 .booking-form input[type="checkbox"],
 .booking-form input[type="radio"] {
@@ -799,10 +943,6 @@ select:required:invalid {
   border-radius: 4px;
 }
 
-.custom-multiselect .options-list label {
-  display: block;
-  margin-bottom: 8px;
-}
 .booking-wrapper {
   display: flex;
   justify-content: center;
@@ -876,24 +1016,6 @@ select:required:invalid {
   text-align: left;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
-.booking-layout {
-  display: grid;
-  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
-  height: 100%;
-  min-height: 100vh;
-}
-
-.half {
-  height: 100%;
-  width: 100%;
-}
-
-.half img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  display: block;
-}
 
 .center-form {
   background-color: #111;
@@ -908,19 +1030,6 @@ select:required:invalid {
   max-width: 600px;
   color: white;
 }
-.booking-layout {
-    display: grid;
-    grid-template-columns: 1fr minmax(auto, 600px) 1fr;
-    height: 100vh;
-    width: 100%;
-  }
-
-  .half img {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    display: block;
-  }
 
   .center-form {
     background-color: #111;
@@ -935,25 +1044,6 @@ select:required:invalid {
     max-width: 600px;
     color: white;
   }
-
-  .booking-layout {
-  display: grid;
-  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
-  height: 100vh; /* Full viewport height */
-}
-
-.half {
-  height: 100vh; /* Make each half fill the screen */
-  width: 100%;
-}
-
-.half img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 .center-form {
   display: flex;
   align-items: center;
@@ -971,23 +1061,6 @@ html, body {
     margin: 0;
   }
 
-  .booking-layout {
-    display: grid;
-    grid-template-columns: 1fr minmax(auto, 600px) 1fr;
-    height: 100vh;
-  }
-
-  .half {
-    height: 100vh;
-    width: 100%;
-  }
-
-  .half img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    display: block;
-  }
 
   .center-form {
     background-color: #111;
@@ -1122,16 +1195,6 @@ html, body {
     font-size: 38px !important;
   }
 
-  /* Booking layout */
-  .booking-layout {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-
-  .half {
-    display: none;
-  }
-
   .center-form {
     padding: 20px;
   }
@@ -1154,8 +1217,9 @@ html, body {
   <div class="header-hover"></div>
   <div class="dropdown" id="navbar">
     <a href="#home">Home</a>
+    <a href="#events">Services</a>
     <a href="#team-intro">Meet Our Team</a>
-    <a href="#booking">Make a Booking</a>
+    <a href="#booking">Book Now</a>
   </div>
 
   <section id="home">
@@ -1183,6 +1247,43 @@ html, body {
 
     </div>
   </section>
+  <section id="events">
+
+  <h2 class="section-title">Music For Every Occasion</h2>
+
+  <div class="events-grid">
+
+  <div class="event-box">
+  <h3>Weddings/Receptions</h3>
+  <p>Creating unforgettable wedding celebrations with the perfect soundtrack, from elegant ceremonies to high-energy dance floors that keep guests celebrating all night.</p>
+</div>
+
+    <div class="event-box">
+
+      <h3>Clubs</h3>
+      <p>Our DJs deliver high-energy performances designed to keep dance floors moving all night, creating unforgettable club atmospheres and connecting crowds through powerful music.</p>
+    </div>
+
+    <div class="event-box">
+      <h3>Destination Events</h3>
+      <p> From Toronto to around the world, we have DJs ready to travel anywhere, delivering unforgettable music experiences at exclusive destinations and global party locations.</p>
+    </div>
+
+    <div class="event-box">
+      <h3>Private Events</h3>
+      <p>Perfect for weddings, celebrations, and private parties, our DJs create unforgettable atmospheres with carefully curated music that keeps guests engaged throughout the event.</p>
+    </div>
+
+    <div class="event-box">
+      <h3>Corporate Events</h3>
+      <p>Professional DJ entertainment designed for corporate events, brand launches, and galas, creating vibrant atmospheres that elevate experiences and leave lasting impressions.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
 
 <section id="team-intro">
   <div id="globeViz" style="width: 100%; height: 80vh;"></div>
@@ -1295,8 +1396,8 @@ html, body {
           <label for="firstName" class="required-label">First Name<span class="star"></span></label>
           <input type="text" id="firstName" name="firstName" required />
   
-          <label for="lastName">Last Name (Optional)</label>
-          <input type="text" id="lastName" name="lastName" />
+          <label for="lastName" class="required-label">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required />
   
           <label for="phone" class="required-label">Phone Number<span class="star"></span></label>
           <input type="tel" id="phone" name="phone" required />
@@ -1332,7 +1433,7 @@ html, body {
   
           <label for="venueAddress" class="required-label">Venue Address<span class="star"></span></label>
           <input type="text" id="venueAddress" name="venueAddress" required />
-  
+
           <label for="guestCount" class="required-label">Expected Number of Guests<span class="star"></span></label>
           <input type="number" id="guestCount" name="guestCount" required min="1" />
   
@@ -1363,12 +1464,19 @@ html, body {
           <select id="djPreference" name="djPreference" required>
             <option value="">-- Select a DJ --</option>
             <option>DJ Kavs</option>
-            <option>DJ Riot</option>
             <option>DJ Spinzta</option>
-            <option>DJ Spadez</option>
-            <option>DJ Christy</option>
             <option>DJ Rev</option>
+            <option>DJ Riot</option>
+            <option>DJ Christy</option>
+            <option>DJ Spadez</option>
           </select>
+          <label for="additionalInfo">Additional Information (Optional)</label>
+<textarea 
+  id="additionalInfo" 
+  name="additionalInfo" 
+  placeholder="Tell us anything else about your event (special requests, music styles, timeline, equipment needs, etc.)"
+></textarea>
+
   
           <button type="submit">Submit Booking</button>
         </form>
@@ -1422,7 +1530,7 @@ if (window.innerWidth > 768) {
       font-weight: 700;
       white-space: nowrap;
     ">
-      🇨🇦 ${d.name}
+       ${d.name}
     </div>
   `;
 
@@ -1818,6 +1926,45 @@ if (window.innerWidth < 768) {
   });
 }
   </script>
-  
+<script>
+let map;
+let marker;
+let autocomplete;
+
+function initMap() {
+
+  const toronto = { lat: 43.6532, lng: -79.3832 };
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 10,
+    center: toronto
+  });
+
+  marker = new google.maps.Marker({
+    map: map
+  });
+
+  const input = document.getElementById("venue");
+
+  autocomplete = new google.maps.places.Autocomplete(input);
+
+  autocomplete.addListener("place_changed", function () {
+
+    const place = autocomplete.getPlace();
+
+    if (!place.geometry) {
+      return;
+    }
+
+    const location = place.geometry.location;
+
+    map.setCenter(location);
+    map.setZoom(15);
+
+    marker.setPosition(location);
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAANV8i4lMTjzV2IaqhIpD0QI9roW-Ym-M&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>
