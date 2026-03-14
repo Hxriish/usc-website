@@ -9,6 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <style>
+
+  #globeViz canvas {
+  touch-action: pan-y;
+}
     #globeViz canvas {
   touch-action: none;
 }
@@ -1382,6 +1386,8 @@ html, body {
 // Initialize Globe
 const myGlobe = Globe()
   (document.getElementById('globeViz'))
+  
+  
   .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
   .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
   .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
@@ -1791,12 +1797,17 @@ countries.forEach(c => {
   animate();
 }
 if (window.innerWidth < 768) {
-  myGlobe.controls().enableZoom = false;
-  myGlobe.controls().autoRotate = false;
-  myGlobe.pointOfView({ lat: 35, lng: -5, altitude: 2 });
-}
-if (window.innerWidth < 768) {
-  myGlobe.controls().enableRotate = false;
+  const controls = myGlobe.controls();
+
+  controls.enableRotate = false;  // prevents drag from blocking scroll
+  controls.enableZoom = false;
+  controls.enablePan = false;
+
+  myGlobe.pointOfView({
+    lat: 35,
+    lng: -5,
+    altitude: 2
+  });
 }
   </script>
   
