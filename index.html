@@ -9,6 +9,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <style>
+
+    .canada-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.canada-image {
+  display: flex;
+  justify-content: center;
+}
+
+.canada-image img {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+}
+#world {
+  padding: 60px 20px;
+  border-top: 4px solid black;
+  background: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #8b0000 50%,
+    #000000 100%
+  );
+}
+body {
+  background: linear-gradient(135deg, #000000, #8b0000);
+  background-attachment: fixed;
+}
     textarea {
   width: 100%;
   min-height: 100px;
@@ -546,10 +579,14 @@ button {
       text-shadow: 2px 2px 6px rgba(214, 40, 40, 0.9);
       font-weight: 700;
     }
-
-    #team {
-  background: url('images/newcanadab.jpg') center/cover no-repeat;
+#team {
   padding: 60px 20px;
+  background: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #8b0000 50%,
+    #000000 100%
+  );
 }
 
     #team::before {
@@ -567,7 +604,7 @@ button {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 40px;
+      gap: 20px;
       padding: 40px 0;
     }
 
@@ -581,7 +618,7 @@ button {
       background: #111;
       padding: 20px;
       border-radius: 10px;
-      width: 280px;
+      width: 200px;
       opacity: 0;
       transform: translateY(80px);
       transition: opacity 1.5s ease, transform 1.5s ease, box-shadow 0.3s ease;
@@ -1295,89 +1332,79 @@ html, body {
   </div>
 </section>
   
-  <section id="team">
-    <div class="team-grid">
-      <a href="https://www.instagram.com/djkavss/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/kavs.jpeg"><div class="team-bio">DJ Kavs</div></div>
-      </a>
-      <a href="https://www.instagram.com/djspinzta/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/spinzta.png"><div class="team-bio">DJ Spinzta</div></div>
-      </a>
-      <a href="https://www.instagram.com/_djrev/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/rev.JPG"><div class="team-bio">DJ Rev</div></div>
-      </a>
-      <a href="https://www.instagram.com/_djriot_/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/riotnew.JPG"><div class="team-bio">DJ Riot</div></div>
-      </a>
-      <a href="https://www.instagram.com/_djchristy/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/christy.png"><div class="team-bio">DJ Christy</div></div>
-      </a>
-      <a href="https://www.instagram.com/dj.spadez/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/spadez.png"><div class="team-bio">DJ Spadez</div></div>
-      </a>
-      <a href="https://www.instagram.com/usc.djab/?hl=en" class="team-link" target="_blank">
-        <div class="team-card"><img src="images/ab.jpg"><div class="team-bio">DJ AB</div></div>
-      </a>
+<section id="team">
+
+  <div class="canada-layout">
+
+    <div class="canada-djs">
+      <div class="team-grid">
+        <a href="https://www.instagram.com/djkavss/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/kavs.jpeg"><div class="team-bio">DJ Kavs</div></div>
+        </a>
+
+        <a href="https://www.instagram.com/djspinzta/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/spinzta.png"><div class="team-bio">DJ Spinzta</div></div>
+        </a>
+
+        <a href="https://www.instagram.com/_djrev/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/rev.JPG"><div class="team-bio">DJ Rev</div></div>
+        </a>
+
+        <a href="https://www.instagram.com/_djriot_/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/riotnew.JPG"><div class="team-bio">DJ Riot</div></div>
+        </a>
+
+        <a href="https://www.instagram.com/_djchristy/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/christy.png"><div class="team-bio">DJ Christy</div></div>
+        </a>
+
+        <a href="https://www.instagram.com/dj.spadez/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/spadez.png"><div class="team-bio">DJ Spadez</div></div>
+        </a>
+
+        <a href="https://www.instagram.com/usc.djab/?hl=en" class="team-link" target="_blank">
+          <div class="team-card"><img src="images/ab.jpg"><div class="team-bio">DJ AB</div></div>
+        </a>
+      </div>
     </div>
-  </section>
+
+    <div class="canada-image">
+      <img src="images/newcanadab.jpg" alt="Canada DJs">
+    </div>
+
+  </div>
+
+</section>
 
   <section id="europe">  
     <!-- Switzerland -->   
     
-<section id="switzerland" class="continent-section" style="background: url('images/switzerland-bg.png') center/cover no-repeat; padding: 60px 20px;">
-  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Switzerland 🇨🇭</h2>
+<section id="world" class="continent-section" style="padding: 60px 20px;">
+  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">World 🌎</h2>
   <div class="team-grid">
     <a href="https://www.instagram.com/deejayneezy_official?utm_medium=copy_link" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/neezy.png" alt="DJ Neezy"><div class="team-bio">Deejay Neezy</div></div>
+      <div class="team-card"><img src="images/neezy.png" alt="DJ Neezy"><div class="team-bio">Deejay Neezy (Switzerland)</div></div>
     </a>
     <a href="https://www.instagram.com/djkrish_15?igshid=YmMyMTA2M2Y%3D" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/krish.png" alt="DJ Krish"><div class="team-bio">DJ Krish</div></div>
+      <div class="team-card"><img src="images/krish.png" alt="DJ Krish"><div class="team-bio">DJ Krish (Switzerland)</div></div>
     </a>
     <a href="https://www.instagram.com/dj_jene?igsh=MWtzNmhseXd1cXZmZw%3D%3D" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/jene.png" alt="DJ Jene"><div class="team-bio">DJ Jene</div></div>
+      <div class="team-card"><img src="images/jene.png" alt="DJ Jene"><div class="team-bio">DJ Jene (Switzerland)</div></div>
     </a>
-  </div>
-</section>
-    
-  
- <!-- France -->
-<section id="france" class="continent-section" style="background: url('images/france-bg.png') center/cover no-repeat; padding: 60px 20px;">
-  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">France 🇫🇷</h2>
-  <div class="team-grid">
     <a href="https://www.instagram.com/dj_jamesofficial?utm_medium=copy_link" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/james.png" alt="DJ James"><div class="team-bio">DJ James</div></div>
+      <div class="team-card"><img src="images/james.png" alt="DJ James"><div class="team-bio">DJ James (France)</div></div>
     </a>
-  </div>
-</section>
-  
-<section id="uk" class="continent-section" style="background: url('images/britain-bg.png') center/cover no-repeat; padding: 60px 20px;">
-  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">United Kingdom 🇬🇧</h2>
-  <div class="team-grid">
-    <a href="https://www.instagram.com/ap_pistol?utm_medium=copy_link" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/appistol.png" alt="AP Pistol"><div class="team-bio">AP Pistol</div></div>
+        <a href="https://www.instagram.com/ap_pistol?utm_medium=copy_link" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/appistol.png" alt="AP Pistol"><div class="team-bio">AP Pistol (UK)</div></div>
     </a>
     <a href="https://www.instagram.com/dj_roxzstar/" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/roxzstar.png" alt="DJ RoxzStar"><div class="team-bio">DJ RoxzStar</div></div>
+      <div class="team-card"><img src="images/roxzstar.png" alt="DJ RoxzStar"><div class="team-bio">DJ RoxzStar (UK)</div></div>
     </a>
-  </div>
-</section>
-
-<!-- Germany -->
-<section id="germany" class="continent-section" style="background: url('images/germany-bg.png') center/cover no-repeat; padding: 60px 20px;">
-  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Germany 🇩🇪</h2>
-  <div class="team-grid">
-    <a href="https://www.instagram.com/aj.mus1c/?hl=en" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/aj.jpg" alt="DJ AJ"><div class="team-bio">DJ AJ</div></div>
+        <a href="https://www.instagram.com/aj.mus1c/?hl=en" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/aj.jpg" alt="DJ AJ"><div class="team-bio">DJ AJ (Germany)</div></div>
     </a>
-  </div>
-</section>
-
-<!-- Norway -->
-<section id="norway" class="continent-section" style="background: url('images/norway-bg.png') center/cover no-repeat; padding: 60px 20px;">
-  <h2 style="font-size:64px;text-align:center;color:#fff;text-shadow:2px 2px 6px rgba(214,40,40,0.9);font-weight:700;margin-bottom:20px">Norway 🇳🇴</h2>
-  <div class="team-grid">
-    <a href="https://www.instagram.com/dj.anu_/" class="team-link" target="_blank">
-      <div class="team-card"><img src="images/anu.png" alt="DJ Anu"><div class="team-bio">DJ Anu</div></div>
+        <a href="https://www.instagram.com/dj.anu_/" class="team-link" target="_blank">
+      <div class="team-card"><img src="images/anu.png" alt="DJ Anu"><div class="team-bio">DJ Anu (Norway)</div></div>
     </a>
   </div>
 </section>
@@ -1507,11 +1534,11 @@ if (window.innerWidth > 768) {
   .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
   .htmlElementsData([
     { lat: 43.65, lng: -79.38, name: 'CANADA', link: '#team', h: 0.2 },
-    { lat: 43.81, lng: 8.22, name: 'SWITZERLAND', link: '#switzerland', h: 0.1 }, // Highest stem
-    { lat: 47.9, lng: 2.35, name: 'FRANCE', link: '#france', h: 0.8 },      // Middle stem
-    { lat: 51.50, lng: -0.12, name: 'UK', link: '#uk', h: 1.35 },    // Lowest stem
-    { lat: 52.5200, lng: 13.4050, name: 'GERMANY', link: '#germany', h: 1.7},
-    { lat: 59.9139, lng: 10.7522, name: 'NORWAY', link: '#norway', h: 1.9 }
+    { lat: 43.81, lng: 8.22, name: 'SWITZERLAND', link: '#world', h: 0.1 }, // Highest stem
+    { lat: 47.9, lng: 2.35, name: 'FRANCE', link: '#world', h: 0.8 },      // Middle stem
+    { lat: 51.50, lng: -0.12, name: 'UK', link: '#world', h: 1.35 },    // Lowest stem
+    { lat: 52.5200, lng: 13.4050, name: 'GERMANY', link: '#world', h: 1.7},
+    { lat: 59.9139, lng: 10.7522, name: 'NORWAY', link: '#world', h: 1.9 }
   ])
 .htmlElement(d => {
   const el = document.createElement('div');
