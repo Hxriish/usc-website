@@ -8,27 +8,64 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
 
-.events-container{
+/* EVENTS SECTION */
+#events{
+  background: linear-gradient(180deg, #000000 0%, #3a0000 100%);
+  padding:100px 20px;
+  text-align:center;
+}
+
+.events-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:30px;
+  max-width:900px;
+  margin:60px auto 0;
 }
 
-.events-container .event-box:last-child{
+/* Make last box centered on desktop */
+.events-grid .event-box:last-child{
   grid-column:1 / span 2;
   justify-self:center;
   max-width:400px;
 }
 
-@media (max-width: 768px) {
+.event-box{
+  background:rgba(20,20,20,.95);
+  padding:30px 25px;
+  border-radius:14px;
+  transition:all .35s ease;
+  box-shadow:0 0 10px rgba(0,0,0,.6);
+}
 
-  .events-grid {
-    grid-template-columns: 1fr;
+.event-box h3{
+  font-size:22px;
+  margin-bottom:10px;
+  color:#d62828;
+}
+
+.event-box p{
+  font-size:15px;
+  color:#ddd;
+  line-height:1.6;
+}
+
+/* MOBILE FIX */
+@media (max-width:768px){
+
+  .events-grid{
+    grid-template-columns:1fr;
+    max-width:500px;
+    padding:0 10px;
   }
 
-  .events-grid .event-box:last-child {
-    grid-column: auto;
-    max-width: 100%;
+  .events-grid .event-box:last-child{
+    grid-column:auto;
+    max-width:100%;
+  }
+
+  .event-box{
+    padding:25px 20px;
   }
 
 }
@@ -114,50 +151,7 @@ textarea:focus {
   align-items: center;
   justify-content: center;
 }
-    .events-grid .event-box:last-child{
-  grid-column:1 / span 2;
-  justify-self:center;
-  max-width:400px;
-}
-
-#events{
-  background: linear-gradient(180deg, #000000 0%, #3a0000 100%);
-  padding:100px 20px;
-  text-align:center;
-}
-
-.events-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:30px;
-  max-width:900px;
-  margin:60px auto 0;
-}
-
-.event-box{
-  background:rgba(20,20,20,.95);
-  padding:30px 25px;
-  border-radius:14px;
-  transition:all .35s ease;
-  box-shadow:0 0 10px rgba(0,0,0,.6);
-}
-
-.event-box h3{
-  font-size:22px;
-  margin-bottom:10px;
-  color:#d62828;
-}
-
-.event-box p{
-  font-size:15px;
-  color:#ddd;
-  line-height:1.6;
-}
-
-.event-box:hover{
-  transform:translateY(-8px);
-  box-shadow:0 15px 30px rgba(214,40,40,.35);
-}
+  
 
     #about {
   animation: fadeUp 1s ease;
