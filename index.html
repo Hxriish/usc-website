@@ -759,7 +759,7 @@ select[multiple] {
 }
 
 .custom-multiselect .selected-options {
-  pointer-events: none;
+  pointer-events: auto; /* FIXED */
   color: #aaa;
 }
 
@@ -1491,6 +1491,24 @@ html, body {
               <label><input type="checkbox" value="Dry Ice/Fog Machine" /> Dry Ice/Fog Machine</label>
             </div>
           </div>
+
+          <label for="genres" class="required-label">Preferred Genre<span class="star"></span></label>
+<div class="custom-multiselect" id="genresDropdown">
+  <div class="selected-options">-- Select Genres --</div>
+  <div class="options-list">
+    <label><input type="checkbox" value="Top 40" /> Top 40</label>
+    <label><input type="checkbox" value="HipHop" /> HipHop</label>
+    <label><input type="checkbox" value="Dancehall" /> Dancehall</label>
+    <label><input type="checkbox" value="Soca" /> Soca</label>
+    <label><input type="checkbox" value="Tamil" /> Tamil</label>
+    <label><input type="checkbox" value="Punjabi" /> Punjabi</label>
+    <label><input type="checkbox" value="Bollywood" /> Bollywood</label>
+    <label>
+      <input type="checkbox" value="Other" /> 
+      Other (Please note in Additional Information)
+    </label>
+  </div>
+</div>
   
           <label class="required-label">Will there be an Event Planner?<span class="star">*</span></label>
           <div class="radio-group">
@@ -1735,6 +1753,36 @@ const observer = new IntersectionObserver((entries) => {
   }
 });
     }
+
+ const genresDropdown = document.getElementById("genresDropdown");
+
+if (genresDropdown) {
+  const selectedDisplay = genresDropdown.querySelector(".selected-options");
+  const checkboxes = genresDropdown.querySelectorAll("input[type='checkbox']");
+
+  genresDropdown.addEventListener("click", (e) => {
+    e.stopPropagation();
+    genresDropdown.classList.toggle("open");
+  });
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener("change", () => {
+      const selected = Array.from(checkboxes)
+        .filter(c => c.checked)
+        .map(c => c.value);
+
+      selectedDisplay.textContent = selected.length
+        ? selected.join(", ")
+        : "-- Select Genres --";
+    });
+  });
+
+  document.addEventListener("mousedown", (e) => {
+    if (!genresDropdown.contains(e.target)) {
+      genresDropdown.classList.remove("open");
+    }
+  });
+}
   
     // Phone number formatting
     const phoneInput = document.getElementById("phone");
